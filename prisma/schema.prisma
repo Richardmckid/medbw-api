@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Facility {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String    @unique
+  body          Json?
+
+  drugs         Drug[]
+
+  district       District   @relation(fields: [districtId], references: [id])
+  districtId    String @db.ObjectId
+}
+
+model Drug {
+  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
+  name                String 
+  sku                 String?
+  quantity            Int    @default(value: 0)
+  maxAllowedQty       Int?    @default(value: 0)
+  body                Json?
+  
+  facility    Facility   @relation(fields: [facilityId], references: [id])
+  facilityId  String @db.ObjectId
+
+  category    Category   @relation(fields: [categoryId], references: [id])
+  categoryId  String @db.ObjectId
+}
+
+model District {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String    @unique
+  body          Json?
+  facilities    Facility[]
+}
+
+model Category {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String    @unique
+  body          Json?
+  drugs         Drug[]
+}
+
+
