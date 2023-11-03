@@ -40,7 +40,7 @@ export default function Home() {
     <main>
       <div className="bg-white h-screen max-w-[600px] mt-6 mx-auto">
         <div className="p-2 border mb-4">
-          <h1 className="text-slate-400">This api returns a JSON object with status: (success/error) then data object is success or message if error</h1>
+          <h1 className="text-slate-400">This api returns a JSON object with status: (success/error) then data object when its success or message if its error</h1>
         </div>
         
       {
